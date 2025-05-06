@@ -1,0 +1,1591 @@
+openapi: 3.0.3
+info:
+  title: Kanka API - Entity Endpoints
+  description: Entity-related endpoints for Kanka, a free online worldbuilding and RPG campaign management tool.
+  version: 1.0.0
+  contact:
+    name: Kanka
+    url: https://kanka.io
+servers:
+  - url: https://api.kanka.io/1.0
+    description: Production API server
+security:
+  - BearerAuth: []
+
+paths:
+  # 1. Posts
+  /campaigns/{campaignId}/entities/{entityId}/posts:
+    parameters:
+      - $ref: '#/components/parameters/campaignId'
+      - $ref: '#/components/parameters/entityId'
+    get:
+      summary: Get all posts for an entity
+      operationId: getEntityPosts
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostList'
+    post:
+      summary: Create a new post for an entity
+      operationId: createEntityPost
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+
+  /campaigns/{campaignId}/entities/{entityId}/posts/{postId}:
+    parameters:
+      - $ref: '#/components/parameters/campaignId'
+      - $ref: '#/components/parameters/entityId'
+      - $ref: '#/components/parameters/postId'
+    get:
+      summary: Get a specific post from an entity
+      operationId: getEntityPost
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+    put:
+      summary: Update a post
+      operationId: updateEntityPost
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+    delete:
+      summary: Delete a post
+      operationId: deleteEntityPost
+      responses:
+        '200':
+          description: Successful operation
+
+  # 2. Attributes
+  /campaigns/{campaignId}/entities/{entityId}/attributes:
+    parameters:
+      - $ref: '#/components/parameters/campaignId'
+      - $ref: '#/components/parameters/entityId'
+    get:
+      summary: Get all attributes for an entity
+      operationId: getEntityAttributes
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AttributeList'
+    post:
+      summary: Create a new attribute for an entity
+      operationId: createEntityAttribute
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AttributeRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attribute'
+
+  /campaigns/{campaignId}/entities/{entityId}/attributes/{attributeId}:
+    parameters:
+      - $ref: '#/components/parameters/campaignId'
+      - $ref: '#/components/parameters/entityId'
+      - $ref: '#/components/parameters/attributeId'
+    get:
+      summary: Get a specific attribute from an entity
+      operationId: getEntityAttribute
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attribute'
+    put:
+      summary: Update an attribute
+      operationId: updateEntityAttribute
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AttributeRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attribute'
+    delete:
+      summary: Delete an attribute
+      operationId: deleteEntityAttribute
+      responses:
+        '200':
+          description: Successful operation
+
+  # 3. Entity Events
+  /campaigns/{campaignId}/entities/{entityId}/entity_events:
+    parameters:
+      - $ref: '#/components/parameters/campaignId'
+      - $ref: '#/components/parameters/entityId'
+    get:
+      summary: Get all events for an entity
+      operationId: getEntityEvents
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityEventList'
+    post:
+      summary: Create a new event for an entity
+      operationId: createEntityEvent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityEventRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityEvent'
+
+  /campaigns/{campaignId}/entities/{entityId}/entity_events/{eventId}:
+    parameters:
+      - $ref: '#/components/parameters/campaignId'
+      - $ref: '#/components/parameters/entityId'
+      - name: eventId
+        in: path
+        description: ID of the entity event
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Get a specific event from an entity
+      operationId: getEntityEvent
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityEvent'
+    put:
+      summary: Update an entity event
+      operationId: updateEntityEvent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityEventRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityEvent'
+    delete:
+      summary: Delete an entity event
+      operationId: deleteEntityEvent
+      responses:
+        '200':
+          description: Successful operation
+
+  # 4. Entity Inventory
+  /campaigns/{campaignId}/entities/{entityId}/inventory:
+    parameters:
+      - $ref: '#/components/parameters/campaignId'
+      - $ref: '#/components/parameters/entityId'
+    get:
+      summary: Get inventory for an entity
+      operationId: getEntityInventory
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryList'
+    post:
+      summary: Add item to entity inventory
+      operationId: addEntityInventoryItem
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InventoryRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory'
+
+  /campaigns/{campaignId}/entities/{entityId}/inventory/{inventoryId}:
+    parameters:
+      - $ref: '#/components/parameters/campaignId'
+      - $ref: '#/components/parameters/entityId'
+      - name: inventoryId
+        in: path
+        description: ID of the inventory item
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Get a specific inventory item from an entity
+      operationId: getEntityInventoryItem
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory'
+    put:
+      summary: Update an inventory item
+      operationId: updateEntityInventoryItem
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InventoryRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory'
+    delete:
+      summary: Remove an item from entity inventory
+      operationId: deleteEntityInventoryItem
+      responses:
+        '200':
+          description: Successful operation
+
+  # 5. Entity Mentions
+  /campaigns/{campaignId}/entities/{entityId}/entity_mentions:
+    parameters:
+      - $ref: '#/components/parameters/campaignId'
+      - $ref: '#/components/parameters/entityId'
+    get:
+      summary: Get all mentions of an entity
+      operationId: getEntityMentions
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityMentionList'
+
+  # 6. Entity Tags
+  /campaigns/{campaignId}/entities/{entityId}/entity_tags:
+    parameters:
+      - $ref: '#/components/parameters/campaignId'
+      - $ref: '#/components/parameters/entityId'
+    get:
+      summary: Get all tags for an entity
+      operationId: getEntityTags
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityTagList'
+    post:
+      summary: Add a tag to an entity
+      operationId: addEntityTag
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityTagRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityTag'
+
+  /campaigns/{campaignId}/entities/{entityId}/entity_tags/{tagId}:
+    parameters:
+      - $ref: '#/components/parameters/campaignId'
+      - $ref: '#/components/parameters/entityId'
+      - name: tagId
+        in: path
+        description: ID of the tag
+        required: true
+        schema:
+          type: integer
+    delete:
+      summary: Remove a tag from an entity
+      operationId: deleteEntityTag
+      responses:
+        '200':
+          description: Successful operation
+
+  # 7. Entity Permissions
+  /campaigns/{campaignId}/entities/{entityId}/entity_permissions:
+    parameters:
+      - $ref: '#/components/parameters/campaignId'
+      - $ref: '#/components/parameters/entityId'
+    get:
+      summary: Get all permissions for an entity
+      operationId: getEntityPermissions
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityPermissionList'
+    post:
+      summary: Add a permission to an entity
+      operationId: addEntityPermission
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityPermissionRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityPermission'
+
+  /campaigns/{campaignId}/entities/{entityId}/entity_permissions/{permissionId}:
+    parameters:
+      - $ref: '#/components/parameters/campaignId'
+      - $ref: '#/components/parameters/entityId'
+      - name: permissionId
+        in: path
+        description: ID of the permission
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Get a specific permission for an entity
+      operationId: getEntityPermission
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityPermission'
+    put:
+      summary: Update an entity permission
+      operationId: updateEntityPermission
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityPermissionRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityPermission'
+    delete:
+      summary: Remove a permission from an entity
+      operationId: deleteEntityPermission
+      responses:
+        '200':
+          description: Successful operation
+
+  # 8. Relations
+  /campaigns/{campaignId}/entities/{entityId}/relations:
+    parameters:
+      - $ref: '#/components/parameters/campaignId'
+      - $ref: '#/components/parameters/entityId'
+    get:
+      summary: Get all relations for an entity
+      operationId: getEntityRelations
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RelationList'
+    post:
+      summary: Create a new relation for an entity
+      operationId: createEntityRelation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RelationRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Relation'
+
+  /campaigns/{campaignId}/entities/{entityId}/relations/{relationId}:
+    parameters:
+      - $ref: '#/components/parameters/campaignId'
+      - $ref: '#/components/parameters/entityId'
+      - name: relationId
+        in: path
+        description: ID of the relation
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Get a specific relation from an entity
+      operationId: getEntityRelation
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Relation'
+    put:
+      summary: Update a relation
+      operationId: updateEntityRelation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RelationRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Relation'
+    delete:
+      summary: Delete a relation
+      operationId: deleteEntityRelation
+      responses:
+        '200':
+          description: Successful operation
+
+  # 9. Entity Abilities
+  /campaigns/{campaignId}/entities/{entityId}/entity_abilities:
+    parameters:
+      - $ref: '#/components/parameters/campaignId'
+      - $ref: '#/components/parameters/entityId'
+    get:
+      summary: Get all abilities for an entity
+      operationId: getEntityAbilities
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityAbilityList'
+    post:
+      summary: Add an ability to an entity
+      operationId: addEntityAbility
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityAbilityRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityAbility'
+
+  /campaigns/{campaignId}/entities/{entityId}/entity_abilities/{abilityId}:
+    parameters:
+      - $ref: '#/components/parameters/campaignId'
+      - $ref: '#/components/parameters/entityId'
+      - name: abilityId
+        in: path
+        description: ID of the ability
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Get a specific ability from an entity
+      operationId: getEntityAbility
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityAbility'
+    put:
+      summary: Update an entity ability
+      operationId: updateEntityAbility
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityAbilityRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityAbility'
+    delete:
+      summary: Remove an ability from an entity
+      operationId: deleteEntityAbility
+      responses:
+        '200':
+          description: Successful operation
+
+  # 10. Entity Image
+  /campaigns/{campaignId}/entities/{entityId}/entity_image:
+    parameters:
+      - $ref: '#/components/parameters/campaignId'
+      - $ref: '#/components/parameters/entityId'
+    post:
+      summary: Upload an image for an entity
+      operationId: uploadEntityImage
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityImageResponse'
+    delete:
+      summary: Remove the image from an entity
+      operationId: deleteEntityImage
+      responses:
+        '200':
+          description: Successful operation
+
+  # 11. Entity Assets
+  /campaigns/{campaignId}/entities/{entityId}/entity_assets:
+    parameters:
+      - $ref: '#/components/parameters/campaignId'
+      - $ref: '#/components/parameters/entityId'
+    get:
+      summary: Get all assets for an entity
+      operationId: getEntityAssets
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityAssetList'
+    post:
+      summary: Add an asset to an entity
+      operationId: addEntityAsset
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                asset:
+                  type: string
+                  format: binary
+                name:
+                  type: string
+                is_private:
+                  type: boolean
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityAsset'
+
+  /campaigns/{campaignId}/entities/{entityId}/entity_assets/{assetId}:
+    parameters:
+      - $ref: '#/components/parameters/campaignId'
+      - $ref: '#/components/parameters/entityId'
+      - name: assetId
+        in: path
+        description: ID of the asset
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Get a specific asset from an entity
+      operationId: getEntityAsset
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityAsset'
+    put:
+      summary: Update an entity asset
+      operationId: updateEntityAsset
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityAssetRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityAsset'
+    delete:
+      summary: Remove an asset from an entity
+      operationId: deleteEntityAsset
+      responses:
+        '200':
+          description: Successful operation
+
+  # 12. Entity Files
+  /campaigns/{campaignId}/entities/{entityId}/entity_files:
+    parameters:
+      - $ref: '#/components/parameters/campaignId'
+      - $ref: '#/components/parameters/entityId'
+    get:
+      summary: Get all files for an entity
+      operationId: getEntityFiles
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityFileList'
+    post:
+      summary: Upload a file for an entity
+      operationId: uploadEntityFile
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                name:
+                  type: string
+                is_private:
+                  type: boolean
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityFile'
+
+  /campaigns/{campaignId}/entities/{entityId}/entity_files/{fileId}:
+    parameters:
+      - $ref: '#/components/parameters/campaignId'
+      - $ref: '#/components/parameters/entityId'
+      - name: fileId
+        in: path
+        description: ID of the file
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Get a specific file from an entity
+      operationId: getEntityFile
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityFile'
+    put:
+      summary: Update an entity file
+      operationId: updateEntityFile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityFileRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityFile'
+    delete:
+      summary: Remove a file from an entity
+      operationId: deleteEntityFile
+      responses:
+        '200':
+          description: Successful operation
+
+  # 13. Entity Links
+  /campaigns/{campaignId}/entities/{entityId}/entity_links:
+    parameters:
+      - $ref: '#/components/parameters/campaignId'
+      - $ref: '#/components/parameters/entityId'
+    get:
+      summary: Get all links for an entity
+      operationId: getEntityLinks
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityLinkList'
+    post:
+      summary: Add a link to an entity
+      operationId: addEntityLink
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityLinkRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityLink'
+
+  /campaigns/{campaignId}/entities/{entityId}/entity_links/{linkId}:
+    parameters:
+      - $ref: '#/components/parameters/campaignId'
+      - $ref: '#/components/parameters/entityId'
+      - name: linkId
+        in: path
+        description: ID of the link
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Get a specific link from an entity
+      operationId: getEntityLink
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityLink'
+    put:
+      summary: Update an entity link
+      operationId: updateEntityLink
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityLinkRequest'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityLink'
+    delete:
+      summary: Remove a link from an entity
+      operationId: deleteEntityLink
+      responses:
+        '200':
+          description: Successful operation
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth 2.0 token
+
+  parameters:
+    campaignId:
+      name: campaignId
+      in: path
+      description: ID of the campaign
+      required: true
+      schema:
+        type: integer
+    
+    entityId:
+      name: entityId
+      in: path
+      description: ID of the entity
+      required: true
+      schema:
+        type: integer
+    
+    postId:
+      name: postId
+      in: path
+      description: ID of the post
+      required: true
+      schema:
+        type: integer
+    
+    attributeId:
+      name: attributeId
+      in: path
+      description: ID of the attribute
+      required: true
+      schema:
+        type: integer
+
+  schemas:
+    # Base response format
+    PaginationLinks:
+      type: object
+      properties:
+        first:
+          type: string
+        last:
+          type: string
+        prev:
+          type: string
+          nullable: true
+        next:
+          type: string
+          nullable: true
+
+    # 1. Posts
+    PostList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Post'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+
+    Post:
+      type: object
+      properties:
+        id:
+          type: integer
+        entity_id:
+          type: integer
+        name:
+          type: string
+        entry:
+          type: string
+        entry_parsed:
+          type: string
+        visibility:
+          type: string
+          enum: [all, members, admin, self]
+        position:
+          type: integer
+        is_private:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+
+    # 6. Entity Tags
+    EntityTagList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityTag'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+
+    EntityTag:
+      type: object
+      properties:
+        id:
+          type: integer
+        entity_id:
+          type: integer
+        tag_id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        created_by:
+          type: integer
+        updated_at:
+          type: string
+          format: date-time
+        updated_by:
+          type: integer
+
+    EntityTagRequest:
+      type: object
+      required:
+        - tag_id
+      properties:
+        tag_id:
+          type: integer
+
+    # 7. Entity Permissions
+    EntityPermissionList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityPermission'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+
+    EntityPermission:
+      type: object
+      properties:
+        id:
+          type: integer
+        entity_id:
+          type: integer
+        user_id:
+          type: integer
+          nullable: true
+        role_id:
+          type: integer
+          nullable: true
+        access:
+          type: string
+          enum: [read, write, delete, admin]
+
+    # 8. Relations
+    RelationList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Relation'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+
+    Relation:
+      type: object
+      properties:
+        id:
+          type: integer
+        owner_id:
+          type: integer
+        target_id:
+          type: integer
+        relation:
+          type: string
+        attitude:
+          type: integer
+        color:
+          type: string
+          nullable: true
+        is_private:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+        created_by:
+          type: integer
+        updated_at:
+          type: string
+          format: date-time
+        updated_by:
+          type: integer
+
+    RelationRequest:
+      type: object
+      required:
+        - target_id
+        - relation
+      properties:
+        target_id:
+          type: integer
+        relation:
+          type: string
+        attitude:
+          type: integer
+          minimum: -100
+          maximum: 100
+        color:
+          type: string
+          nullable: true
+        is_private:
+          type: boolean
+          default: false
+
+    # 13. Entity Links
+    EntityLinkList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityLink'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+
+    EntityLink:
+      type: object
+      properties:
+        id:
+          type: integer
+        entity_id:
+          type: integer
+        name:
+          type: string
+        url:
+          type: string
+          format: uri
+        icon:
+          type: string
+          nullable: true
+        position:
+          type: integer
+        is_private:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+        created_by:
+          type: integer
+        updated_at:
+          type: string
+          format: date-time
+        updated_by:
+          type: integer
+
+    EntityLinkRequest:
+      type: object
+      required:
+        - name
+        - url
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+          format: uri
+        icon:
+          type: string
+          nullable: true
+        position:
+          type: integer
+        is_private:
+          type: boolean
+          default: false
+
+    # 9. Entity Abilities
+    EntityAbilityList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityAbility'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+
+    EntityAbility:
+      type: object
+      properties:
+        id:
+          type: integer
+        entity_id:
+          type: integer
+        ability_id:
+          type: integer
+        charges:
+          type: integer
+          nullable: true
+        note:
+          type: string
+          nullable: true
+        position:
+          type: integer
+        visibility:
+          type: string
+          enum: [all, members, admin, self]
+        created_at:
+          type: string
+          format: date-time
+        created_by:
+          type: integer
+        updated_at:
+          type: string
+          format: date-time
+        updated_by:
+          type: integer
+
+    EntityAbilityRequest:
+      type: object
+      required:
+        - ability_id
+      properties:
+        ability_id:
+          type: integer
+        charges:
+          type: integer
+          nullable: true
+        note:
+          type: string
+          nullable: true
+        position:
+          type: integer
+        visibility:
+          type: string
+          enum: [all, members, admin, self]
+          default: all
+
+    # 10. Entity Image
+    EntityImageResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        image_uuid:
+          type: string
+          format: uuid
+        image_url:
+          type: string
+          format: uri
+
+    # 11. Entity Assets
+    EntityAssetList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityAsset'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+
+    EntityAsset:
+      type: object
+      properties:
+        id:
+          type: integer
+        entity_id:
+          type: integer
+        name:
+          type: string
+        type:
+          type: string
+        path:
+          type: string
+        size:
+          type: integer
+        visibility:
+          type: string
+          enum: [all, members, admin, self]
+        is_private:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+        created_by:
+          type: integer
+        updated_at:
+          type: string
+          format: date-time
+        updated_by:
+          type: integer
+
+    EntityAssetRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        visibility:
+          type: string
+          enum: [all, members, admin, self]
+        is_private:
+          type: boolean
+          default: false
+
+    # 12. Entity Files
+    EntityFileList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityFile'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+
+    EntityFile:
+      type: object
+      properties:
+        id:
+          type: integer
+        entity_id:
+          type: integer
+        name:
+          type: string
+        path:
+          type: string
+        size:
+          type: integer
+        visibility:
+          type: string
+          enum: [all, members, admin, self]
+        is_private:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+        created_by:
+          type: integer
+        updated_at:
+          type: string
+          format: date-time
+        updated_by:
+          type: integer
+
+    EntityFileRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        visibility:
+          type: string
+          enum: [all, members, admin, self]
+        is_private:
+          type: boolean
+          default: false
+        created_at:
+          type: string
+          format: date-time
+        created_by:
+          type: integer
+        updated_at:
+          type: string
+          format: date-time
+        updated_by:
+          type: integer
+
+    EntityPermissionRequest:
+      type: object
+      required:
+        - access
+      properties:
+        user_id:
+          type: integer
+          nullable: true
+        role_id:
+          type: integer
+          nullable: true
+        access:
+          type: string
+          enum: [read, write, delete, admin]
+        created_by:
+          type: integer
+        updated_at:
+          type: string
+          format: date-time
+        updated_by:
+          type: integer
+
+    PostRequest:
+      type: object
+      required:
+        - name
+        - entry
+      properties:
+        name:
+          type: string
+        entry:
+          type: string
+        visibility:
+          type: string
+          enum: [all, members, admin, self]
+          default: all
+        position:
+          type: integer
+        is_private:
+          type: boolean
+          default: false
+
+    # 2. Attributes
+    AttributeList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Attribute'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+
+    Attribute:
+      type: object
+      properties:
+        id:
+          type: integer
+        entity_id:
+          type: integer
+        name:
+          type: string
+        value:
+          type: string
+        parsed_value:
+          type: string
+        is_private:
+          type: boolean
+        is_star:
+          type: boolean
+        default_order:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        created_by:
+          type: integer
+        updated_at:
+          type: string
+          format: date-time
+        updated_by:
+          type: integer
+
+    AttributeRequest:
+      type: object
+      required:
+        - name
+        - value
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+        is_private:
+          type: boolean
+          default: false
+        is_star:
+          type: boolean
+          default: false
+        default_order:
+          type: integer
+
+    # 3. Entity Events
+    EntityEventList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityEvent'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+
+    EntityEvent:
+      type: object
+      properties:
+        id:
+          type: integer
+        entity_id:
+          type: integer
+        calendar_id:
+          type: integer
+          nullable: true
+        event_id:
+          type: integer
+          nullable: true
+        date:
+          type: string
+        comment:
+          type: string
+        is_private:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+        created_by:
+          type: integer
+        updated_at:
+          type: string
+          format: date-time
+        updated_by:
+          type: integer
+
+    EntityEventRequest:
+      type: object
+      required:
+        - date
+      properties:
+        calendar_id:
+          type: integer
+          nullable: true
+        event_id:
+          type: integer
+          nullable: true
+        date:
+          type: string
+        comment:
+          type: string
+        is_private:
+          type: boolean
+          default: false
+
+    # 4. Entity Inventory
+    InventoryList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Inventory'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+
+    Inventory:
+      type: object
+      properties:
+        id:
+          type: integer
+        entity_id:
+          type: integer
+        item_id:
+          type: integer
+        amount:
+          type: integer
+        position:
+          type: integer
+        visibility:
+          type: string
+          enum: [all, members, admin, self]
+        is_private:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+        created_by:
+          type: integer
+        updated_at:
+          type: string
+          format: date-time
+        updated_by:
+          type: integer
+
+    InventoryRequest:
+      type: object
+      required:
+        - item_id
+        - amount
+      properties:
+        item_id:
+          type: integer
+        amount:
+          type: integer
+          default: 1
+        position:
+          type: integer
+        visibility:
+          type: string
+          enum: [all, members, admin, self]
+          default: all
+        is_private:
+          type: boolean
+          default: false
+
+    # 5. Entity Mentions
+    EntityMentionList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityMention'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+
+    EntityMention:
+      type: object
+      properties:
+        id:
+          type: integer
+        entity_id:
+          type: integer
+        mentioning_id:
+          type: integer
+        mentioning_type:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
